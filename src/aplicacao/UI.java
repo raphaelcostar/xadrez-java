@@ -10,17 +10,19 @@ public class UI {
 			for (int j = 0; j< pecas.length; j++) {
 				PrintPiece(pecas[i][j]);
 			}
+			System.out.println();
 		}
-		System.out.println("   a b c d e f g h");
+		System.out.println();
+		System.out.print("  a b c d e f g h");
 	}
 	
 	private static void PrintPiece(PecaDeXadrez peca) {
 		if(peca == null) {
-			System.out.println("-");
+			System.out.print("-");
 		}
 		else {
-			System.out.println(peca);
+			System.out.print(peca);
 		}
-		System.out.println(" ");
+		System.out.print(" ");
 	}
 }

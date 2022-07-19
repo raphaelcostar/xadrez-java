@@ -1,5 +1,7 @@
 package xadrez;
 
+import java.awt.Color;
+
 import tabuleiro.Peca;
 import tabuleiro.Tabuleiro;
 
