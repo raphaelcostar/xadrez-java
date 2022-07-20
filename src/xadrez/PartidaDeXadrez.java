@@ -28,5 +28,8 @@ public class PartidaDeXadrez {
 	private void initialSetup() {
 		tabuleiro.placePiece(new Torre(tabuleiro, Cor.WHITE), new Posicao(2, 1));
 		tabuleiro.placePiece(new Rei(tabuleiro, Cor.BLACK), new Posicao(0,4));
+		tabuleiro.placePiece(new Rei(tabuleiro, Cor.WHITE), new Posicao(7, 4));
+		tabuleiro.placePiece(new Rei(tabuleiro, Cor.WHITE), new Posicao(2, 1));
+		;
 	}
 }
