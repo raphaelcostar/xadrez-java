@@ -1,7 +1,7 @@
 package xadrez;
 
-import java.awt.Color;
-
+import tabuleiro.BoardException;
+import tabuleiro.Peca;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
 import xadrez.pecas.Rei;
@@ -24,6 +24,29 @@ public class PartidaDeXadrez {
 			}
 		}
 		return mat;
+	}
+	
+	public PecaDeXadrez movimentoNoXadrez(PosicaoXadrez posicaoDeOrigem, PosicaoXadrez posicaoDeDestino) {
+		Posicao origem = posicaoDeOrigem.paraAPosicao();
+		Posicao destino = posicaoDeDestino.paraAPosicao();
+		validarPosicaoDeOrigem(origem);
+		Peca pecaCapturada = facaOMovimento(origem, destino);
+		return (PecaDeXadrez)pecaCapturada;
+		
+	}
+	
+	public void validarPosicaoDeOrigem(Posicao posicao) {
+		if(!tabuleiro.eUmaPeca(posicao)) {
+			throw new XadrezException("Não existe peça nesta posição");
+		}
+	}
+	
+	
+	private Peca facaOMovimento(Posicao origem, Posicao destino) {
+		Peca p = tabuleiro.removerPeca(origem);
+		Peca pecaCapturada = tabuleiro.removerPeca(destino);
+		tabuleiro.placePiece(p, destino);
+		return pecaCapturada;
 	}
 	
 	private void lugarDaNovaPeca( char coluna, int linha, PecaDeXadrez peca) {
