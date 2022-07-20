@@ -1,6 +1,5 @@
 package xadrez;
 
-import tabuleiro.BoardException;
 import tabuleiro.Peca;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
@@ -30,12 +29,14 @@ public class PartidaDeXadrez {
 		Posicao origem = posicaoDeOrigem.paraAPosicao();
 		Posicao destino = posicaoDeDestino.paraAPosicao();
 		validarPosicaoDeOrigem(origem);
+		validarPosicaoDeDestino(origem, destino);
 		Peca pecaCapturada = facaOMovimento(origem, destino);
 		return (PecaDeXadrez)pecaCapturada;
 		
 	}
-	
-	public void validarPosicaoDeOrigem(Posicao posicao) {
+
+
+	private void validarPosicaoDeOrigem(Posicao posicao) {
 		if(!tabuleiro.eUmaPeca(posicao)) {
 			throw new XadrezException("Não existe peça nesta posição");
 		}
@@ -43,6 +44,15 @@ public class PartidaDeXadrez {
 			throw new XadrezException("Não é possível movimentar esta peça");
 		}
 	}
+	
+	private void validarPosicaoDeDestino(Posicao origem, Posicao destino) {
+		if(!tabuleiro.peca(origem).movimentoPossivel(destino)) {
+			throw new XadrezException("A pessoa escolhida não pode se movimentar para o local selecionado");
+		}
+	}
+	
+	
+	
 	
 	
 	private Peca facaOMovimento(Posicao origem, Posicao destino) {
