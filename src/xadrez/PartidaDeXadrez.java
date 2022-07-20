@@ -9,12 +9,25 @@ import xadrez.pecas.Torre;
 public class PartidaDeXadrez {
 
 	private Tabuleiro tabuleiro;
-
+	private Cor jogadorAtual;
+	private int turno;
+	
+	
 	public PartidaDeXadrez() {
 		tabuleiro = new Tabuleiro(8, 8);
+		turno = 1;
+		jogadorAtual = Cor.WHITE;
 		initialSetup();
 	}
-
+	
+	public int getTurno() {
+		return turno;
+	}
+	
+	public Cor getJogadorAtual() {
+		return jogadorAtual;
+	}
+	
 	public PecaDeXadrez[][] getPecas() {
 		PecaDeXadrez[][] mat = new PecaDeXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
 		for (int i = 0; i < tabuleiro.getLinhas(); i++) {
@@ -38,6 +51,7 @@ public class PartidaDeXadrez {
 		validarPosicaoDeOrigem(origem);
 		validarPosicaoDeDestino(origem, destino);
 		Peca pecaCapturada = facaOMovimento(origem, destino);
+		proximoTurno();
 		return (PecaDeXadrez)pecaCapturada;
 		
 	}
@@ -47,6 +61,9 @@ public class PartidaDeXadrez {
 		if(!tabuleiro.eUmaPeca(posicao)) {
 			throw new XadrezException("Não existe peça nesta posição");
 		}
+		if(jogadorAtual != ((PecaDeXadrez) tabuleiro.peca(posicao)).getCor()){
+			throw new XadrezException("A peça escolhida não é sua");
+			}
 		if(!tabuleiro.peca(posicao).ePossivelMovimentar()) {
 			throw new XadrezException("Não é possível movimentar esta peça");
 		}
@@ -58,7 +75,10 @@ public class PartidaDeXadrez {
 		}
 	}
 	
-	
+	private void proximoTurno() {
+		turno++;
+		jogadorAtual = (jogadorAtual == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
+	}
 	
 	
 	
